@@ -123,6 +123,8 @@ gelman_diag <- gelman.diag(ss_orch)
 print(gelman_diag)
 dev.off()
 
+gelman.plot(ss_orch)
+
 # Save Gelman-Rubin diagnostics for JAGS to a CSV file
 write.csv(as.data.frame(gelman_diag$psrf), "jags_gelman.csv")
 
