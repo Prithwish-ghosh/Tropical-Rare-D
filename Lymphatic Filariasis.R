@@ -99,7 +99,7 @@ xtable(jags_summary)
 # Extract parameter names and print them
 parameter_names <- varnames(samples)
 print(parameter_names)
-#samples[,c(1:5)]
+ss_lf = samples[,c(1:4)]
 # Select the first few parameters for plotting
 selected_parameters <- parameter_names[1:4]
 
@@ -107,7 +107,7 @@ selected_parameters <- parameter_names[1:4]
 jpeg("jags_posteriors.jpg")
 mcmc_areas(samples, pars = selected_parameters, prob = 0.95) +
   ggtitle("Posterior distributions with 95% credible intervals for first few parameters")
-  
+
 dev.off()
 
 # Trace plots for the first few parameters
@@ -121,10 +121,10 @@ head(as.data.frame(jags_summary$statistics))
 
 # Diagnostics for JAGS model
 jpeg("jags_gelman.jpg")
-gelman_diag <- gelman.diag()
+gelman_diag <- gelman.diag(ss_lf)
 print(gelman_diag)
 dev.off()
-
+gelman.plot(ss_lf)
 # Save Gelman-Rubin diagnostics for JAGS to a CSV file
 write.csv(as.data.frame(gelman_diag$psrf), "jags_gelman.csv")
 
